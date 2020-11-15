@@ -31,7 +31,7 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-export const BaseItem = new Schema(
+const BaseModel = new Schema(
 {
 	name:
 	{
@@ -57,3 +57,5 @@ export const BaseItem = new Schema(
 		type: Buffer
 	}
 });
+
+export const baseModel = mongoose.model('BaseModel', BaseModel);
