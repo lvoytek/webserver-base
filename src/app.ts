@@ -32,9 +32,14 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 
+import {BaseRouter} from "./routes/baseRouter";
+
 class App
 {
 	public app: express.Application;
+
+	// Routers
+	public baseRouter: BaseRouter = new BaseRouter();
 
 	/**
 	 * Runs all server initialization code
@@ -44,6 +49,7 @@ class App
 		// Initialize Express server, database, and set up routing
 		this.app = express();
 		this.config();
+		this.baseRouter.baseRoute(this.app);
 	}
 
 	/**
