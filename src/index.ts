@@ -13,3 +13,10 @@ if (!process.env.PORT)
 //set server's port number and initialize express
 const PORT: number = parseInt(process.env.PORT as string, 10);
 const app = express();
+
+app.use(express.json());
+
+const server = app.listen(PORT, () =>
+{
+	console.log(`Listening on port ${PORT}`);
+});
