@@ -4,6 +4,7 @@
   "description": "A simple base for a webserver using TypeScript, Node.js, and Express",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.17.1",
     "typescript": "^4.0.5"
   },
   "devDependencies": {},
