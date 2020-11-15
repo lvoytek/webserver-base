@@ -30,6 +30,7 @@
 
 import express from "express";
 import bodyParser from "body-parser";
+import path from "path";
 
 class App
 {
@@ -62,6 +63,9 @@ class App
 
 			next();
 		});
+
+		this.app.set("views", path.join(__dirname, "views"));
+		this.app.set("view engine", "ejs");
 
 		// Use body parser to obtain JSON information from incoming request bodies
 		this.app.use(bodyParser.json());
