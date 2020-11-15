@@ -25,7 +25,7 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist/*",
-		"copy-assets": "ts-node tools/copyAssets",
+		"copy-assets": "ts-node tools/copyViews",
 		"lint": "tslint -c tslint.json -p tsconfig.json --fix",
 		"tsc": "tsc",
 		"build": "npm-run-all clean lint tsc copy-assets",
