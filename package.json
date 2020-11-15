@@ -21,8 +21,8 @@
     "url": "git+https://github.com/lvoytek/webserver-base.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Lena Voytek",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/lvoytek/webserver-base/issues"
   },
