@@ -42,5 +42,14 @@ export class BaseRouter
 	{
 		// get the homepage
 		app.route('/').get(this.baseController.serveIndex);
+
+		// handle base model objects
+		app.route('/base')
+
+			//get all the base model objects
+			.get(this.baseController.getAllBaseItems)
+
+			//add a new base model object
+			.post(this.baseController.addBaseItem);
 	}
 }
