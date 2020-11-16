@@ -1,4 +1,4 @@
-# webserver-base: Website Edition
+# webserver-base: Database Edition
 A simple base for a website frontend and backend using TypeScript, Node.js, and Express
 
 ## Setup
