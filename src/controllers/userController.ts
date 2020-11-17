@@ -28,9 +28,13 @@
 
 import bcryptjs from "bcryptjs";
 import jwt from "jwt-simple";
+import * as dotenv from "dotenv";
 import { Request, Response } from 'express';
 
 import {user} from '../models/user';
+
+dotenv.config();
+const TOKENSECRET: string = process.env.TOKENSECRET as string;
 
 type UserDataType =
 {
@@ -102,7 +106,7 @@ export class UserController
 
 				 else if(valid)
 				 {
-					const authToken = jwt.encode({email: req.body.email}, "authstring");
+					const authToken = jwt.encode({email: req.body.email}, TOKENSECRET);
 					res.status(200).json({"message": "success", "authToken": authToken});
 				 }
 				 else
