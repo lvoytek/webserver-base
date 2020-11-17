@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Document: baseController.ts
+ * Document: baseModel.ts
  *
  * Overview: This document contains the MongoDB object model for a basic database
  * item
