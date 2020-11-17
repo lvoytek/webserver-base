@@ -53,4 +53,9 @@ export class UserController
 				res.status(200).json({"message": "success"});
 		});
 	}
+
+	public authenticateUser(req: Request, res: Response)
+	{
+		
+	}
 }
