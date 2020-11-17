@@ -27,9 +27,19 @@
  */
 
 import bcryptjs from "bcryptjs";
+import jwt from "jwt-simple";
 import { Request, Response } from 'express';
 
 import {user} from '../models/user';
+
+type UserDataType =
+{
+	email: string,
+	fullName: string,
+	userName: string,
+	password: string,
+	passwordHash: string
+};
 
 export class UserController
 {
@@ -45,14 +55,6 @@ export class UserController
 
 	public addUser(req: Request, res: Response)
 	{
-		type UserDataType =
-		{
-			email: string,
-			fullName: string,
-			userName: string,
-			password: string
-		};
-
 		const newUserData = req.body as UserDataType;
 
 		bcryptjs.hash(newUserData.password, 10, (err, hash) =>
@@ -82,6 +84,31 @@ export class UserController
 
 	public authenticateUser(req: Request, res: Response)
 	{
-		res.status(200).json({"message": "success"});
+
+		user.findOne({email: req.body.email}, (err, usr: UserDataType) =>
+		{
+			if (err)
+			   res.status(500).json({"error" : "Can't connect to DB"});
+
+			else if(!usr)
+			   res.status(400).json({"error" : "Email or password invalid."});
+
+			else
+			{
+			  bcryptjs.compare(req.body.password, usr.passwordHash, (bcryptErr, valid) =>
+			  {
+				 if (err)
+				   res.status(500).json({"error" : "Authentication error. Contact support."});
+
+				 else if(valid)
+				 {
+					const authToken = jwt.encode({email: req.body.email}, "authstring");
+					res.status(200).json({"message": "success", "authToken": authToken});
+				 }
+				 else
+					res.status(400).json({error : "Email or password invalid."});
+			  });
+			}
+		  });
 	}
 }
