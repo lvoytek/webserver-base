@@ -39,7 +39,7 @@ export class BaseController
 
 	public addBaseItem(req: Request, res: Response)
 	{
-		let newItem = new baseModel(req.body);
+		const newItem = new baseModel(req.body);
 		newItem.save((err, item) =>
 		{
 			if(err)
@@ -58,5 +58,5 @@ export class BaseController
 			else
 				res.status(200).json(items);
 		});
-	}	
+	}
 }
