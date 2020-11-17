@@ -37,7 +37,7 @@ const User = new Schema(
 	userName:		{ type: String, required: true },
 	passwordHash:	String,
 	lastAccess:		{ type: Date, default: Date.now },
-	isAdmin:		{type: Boolean, default: false}
+	isAdmin:		{ type: Boolean, default: false }
 });
 
 export const user = db.model('User', User);
