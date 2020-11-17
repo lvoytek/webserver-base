@@ -47,7 +47,7 @@ export class UserRouter
 
 			// get the login page
 			.get(this.userController.serveLoginPage)
-			
+
 			// attempt to log in
 			.post(this.userController.authenticateUser);
 

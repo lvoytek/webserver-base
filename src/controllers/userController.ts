@@ -26,6 +26,7 @@
  * Overview: This document handles the logic within user router endpoints
  */
 
+import bcryptjs from "bcryptjs";
 import { Request, Response } from 'express';
 
 import {user} from '../models/user';
@@ -44,18 +45,43 @@ export class UserController
 
 	public addUser(req: Request, res: Response)
 	{
-		const newItem = new user(req.body);
-		newItem.save((err, item) =>
+		type UserDataType =
+		{
+			email: string,
+			fullName: string,
+			userName: string,
+			password: string
+		};
+
+		const newUserData = req.body as UserDataType;
+
+		bcryptjs.hash(newUserData.password, 10, (err, hash) =>
 		{
 			if(err)
 				res.status(400).json({"error": err});
 			else
-				res.status(200).json({"message": "success"});
+			{
+				const newUser = new user(
+				{
+					email: newUserData.email,
+					fullName: newUserData.fullName,
+					userName: newUserData.userName,
+					passwordHash: hash
+				});
+
+				newUser.save((saveErr, item) =>
+				{
+					if(err)
+						res.status(400).json({"error": saveErr});
+					else
+						res.status(200).json({"message": "success"});
+				});
+			}
 		});
 	}
 
 	public authenticateUser(req: Request, res: Response)
 	{
-		
+		res.status(200).json({"message": "success"});
 	}
 }
