@@ -6,7 +6,7 @@ A simple base for a website frontend and backend using TypeScript, Node.js, and 
 ```shell
 git clone https://github.com/lvoytek/webserver-base.git
 cd webserver-base
-git checkout website
+git checkout database
 ```
 2. Install Node modules
 
