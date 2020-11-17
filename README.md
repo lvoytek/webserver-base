@@ -23,3 +23,8 @@ npm run build
 ```shell
 npm run start
 ```
+
+## Database Edition Information
+This branch provides webserver base with both a website frontend and a MongoDB backend. Database interactions are managed through Mongoose. Meanwhile the frontend uses Embedded JS templates.
+
+For this webserver to run properly, [NPM](https://www.npmjs.com/get-npm) and [MongoDB](https://www.mongodb.com/try/download) must be installed.
