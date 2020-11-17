@@ -21,41 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Document: baseModel.ts
+ * Document: db.ts
  *
- * Overview: This document contains the MongoDB object model for a basic database
- * item
+ * Overview: This document initializes the connection to a MongoDB database
  */
 
-import {db} from '../db';
+import mongoose from 'mongoose';
+import * as dotenv from "dotenv";
 
-const Schema = db.Schema;
+dotenv.config();
+const MONGOURL: string = process.env.MONGOURL as string;
 
-const BaseModel = new Schema(
-{
-	name:
-	{
-		type: String,
-		required: true
-	},
-	num:
-	{
-		type: Number,
-		required: true
-	},
-	latest_update_date:
-	{
-		type: Date,
-		default: Date.now,
-	},
-	associated_items:
-	{
-		type: [String]
-	},
-	contents:
-	{
-		type: Buffer
-	}
-});
+mongoose.set('useCreateIndex', true);
+mongoose.connect(MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
-export const baseModel = db.model('BaseModel', BaseModel);
+export const db = mongoose;
