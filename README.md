@@ -1,5 +1,5 @@
 # webserver-base: Database Edition
-A simple base for a website frontend and backend using TypeScript, Node.js, and Express
+A simple base for a website frontend and database backend using TypeScript, Node.js, Express, and MongoDB
 
 ## Setup
 1. Download and checkout the website version of the webserver base
