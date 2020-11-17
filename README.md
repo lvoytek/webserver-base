@@ -38,6 +38,9 @@ This file simply takes in environment variables defined in [.env](./.env) and st
 ### [app.ts](src/app.ts)
 This file defines the main Application class. It is used to initialize the webserver and all of its endpoints, along with the MongoDB server.
 
+### [db.ts](src/db.ts)
+This file initializes the MongoDB server at a given URL to be used by controllers and models.
+
 ### [routes](src/routes/)
 Files in this folder are included by the main App object, and define the webserver's routing. These routes define the location of webpages and REST API endpoints.
 
