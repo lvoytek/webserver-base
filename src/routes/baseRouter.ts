@@ -46,10 +46,10 @@ export class BaseRouter
 		// handle base model objects
 		app.route('/base')
 
-			//get all the base model objects
+			// get all the base model objects
 			.get(this.baseController.getAllBaseItems)
 
-			//add a new base model object
+			// add a new base model object
 			.post(this.baseController.addBaseItem);
 	}
 }

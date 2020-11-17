@@ -21,42 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Document: baseController.ts
+ * Document: db.ts
  *
- * Overview: This document handles the logic within router endpoints
+ * Overview: This document initializes the connection to a MongoDB database
  */
 
-import { Request, Response } from 'express';
+import mongoose from 'mongoose';
+import * as dotenv from "dotenv";
 
-import {baseModel} from '../models/baseModel';
+dotenv.config();
+const MONGOURL: string = process.env.MONGOURL as string;
 
-export class BaseController
-{
-	public serveIndex(req: Request, res: Response)
-	{
-		res.render("index");
-	}
+mongoose.set('useCreateIndex', true);
+mongoose.connect(MONGOURL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 
-	public addBaseItem(req: Request, res: Response)
-	{
-		const newItem = new baseModel(req.body);
-		newItem.save((err, item) =>
-		{
-			if(err)
-				res.status(400).json({"error": err});
-			else
-				res.status(200).json({"message": "success", "item":item});
-		});
-	}
-
-	public getAllBaseItems(req: Request, res: Response)
-	{
-		baseModel.find({}, (err, items) =>
-		{
-			if(err)
-				res.status(500).json({"error": err});
-			else
-				res.status(200).json(items);
-		});
-	}
-}
+export const db = mongoose;

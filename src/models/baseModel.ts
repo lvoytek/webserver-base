@@ -27,9 +27,9 @@
  * item
  */
 
-import mongoose from 'mongoose';
+import {db} from '../db';
 
-const Schema = mongoose.Schema;
+const Schema = db.Schema;
 
 const BaseModel = new Schema(
 {
@@ -58,4 +58,4 @@ const BaseModel = new Schema(
 	}
 });
 
-export const baseModel = mongoose.model('BaseModel', BaseModel);
+export const baseModel = db.model('BaseModel', BaseModel);
