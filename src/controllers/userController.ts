@@ -49,7 +49,7 @@ export class UserController
 {
 	public serveNewUserPage(req: Request, res: Response)
 	{
-		res.render("index");
+		res.render("signup");
 	}
 
 	public serveLoginPage(req: Request, res: Response)
