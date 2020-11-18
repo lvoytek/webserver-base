@@ -61,6 +61,7 @@ class App
 	private config(): void
 	{
 		this.app.use(express.json());
+		this.app.use(express.static("dist/public"));
 
 		// This allows AJAX requests to be made to the server from other applications like JCT Word
 		this.app.use((req, res, next) =>
