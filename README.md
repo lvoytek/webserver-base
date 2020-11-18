@@ -51,4 +51,7 @@ Files in this folder correspond to files in the [routes](src/routes/) folder, ha
 Each file in this folder defines a schema and object model for a MongoDB dataset. These can be used by controller modules to work with the MongoDB instance.
 
 ### [views](src/views/)
-This folder contains files visible to the outside web. It contains HTML webpages with EJS capabilities along with webpage CSS and JS if desired.
+This folder contains Embedded JavaScript files that translate into visible HTML webpages. It can use other assets such as images and scripts from the [public/](src/public/) folder.
+
+### [public](src/public/)
+This folder contains scripts, images, and stylesheets visible to the outside web. They can be utilized by EJS webpages in the [views/](src/views/) folder.
