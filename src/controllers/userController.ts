@@ -54,7 +54,7 @@ export class UserController
 
 	public serveLoginPage(req: Request, res: Response)
 	{
-		res.render("index");
+		res.render("login");
 	}
 
 	public addUser(req: Request, res: Response)
