@@ -1,40 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Website Base</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-		<!-- Import jQuery -->
-		<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script src="https://smtpjs.com/v3/smtp.js"></script>
+		<%- include('partials/head'); %>
 	</head>
 	<body>
-		<ul id='dropdown1' class='dropdown-content'>
-			<li><a href="/login">Sign in</a></li>
-		</ul>
-
-		<nav>
-			<div class="nav-wrapper blue-grey darken-2">
-			<a href="/" class="brand-logo left" style="height: 100%;" ><img id="logo" src="images/logo.png" style="height: 85%;"><span id="name">SiteName</span></a>
-			<ul class="right ">
-				<li><a class='dropdown-trigger btn' href='#' data-target='dropdown1'><i class="material-icons">more_vert</i></a></li>
-			</ul>
-			</div>
-		</nav>
+		<%- include('partials/nav'); %>
 
 		<div class="container">
 			<h1 class="header">Website Base Homepage</h1>
 			<a class="btn" href="/new-user"><i class="material-icons right">arrow_forward</i>Sign Up</a>
 		</div>
 	</body>
-	<script>
-		$('.dropdown-trigger').dropdown();
-	</script>
+	<%- include('partials/dropdownscript'); %>
 </html>
