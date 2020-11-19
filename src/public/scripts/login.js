@@ -18,7 +18,7 @@ function sendSigninRequest()
 function signinSuccess(data, textSatus, jqXHR)
 {
 	window.localStorage.setItem('authToken', data.authToken);
-	window.location = "account.html";
+	window.location = "/account";
 }
 
 function signinError(jqXHR, textStatus, errorThrown)
@@ -38,7 +38,7 @@ function signinError(jqXHR, textStatus, errorThrown)
 $(function()
 {  
 	if( window.localStorage.getItem('authToken'))
-		window.location.replace('account.html');
+		window.location.replace('/account');
 	else
 	{
 		$('#signin').click(sendSigninRequest);

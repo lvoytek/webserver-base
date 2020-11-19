@@ -49,7 +49,7 @@ function registerSuccess(data, textStatus, jqXHR)
 	}
 	else
 	{
-		window.location.replace('account.html');
+		window.location.replace('/account');
 	}
 }
   

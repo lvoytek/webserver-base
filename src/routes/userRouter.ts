@@ -43,6 +43,9 @@ export class UserRouter
 		// get the new user page
 		app.route('/new-user').get(this.userController.serveNewUserPage);
 
+		// get the user's account page
+		app.route('/account').get(this.userController.serveAccountPage);
+
 		app.route('/login')
 
 			// get the login page
@@ -52,10 +55,10 @@ export class UserRouter
 			.post(this.userController.authenticateUser);
 
 		app.route('/users')
-		
+
 			// handle base model objects
 			.post(this.userController.addUser)
-			
+
 			// get info on a user if authorized
 			.get(this.userController.getUserInfo);
 	}

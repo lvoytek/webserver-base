@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Account Info</title>
+		<%- include('partials/head'); %>
+		<script src="scripts/account.js"></script>
+	</head>
+
+	<body>
+		<%- include('partials/nav'); %>
+
+		<div class="row">
+			<div class="col s12 m6">
+				<div class="card blue-grey ">
+					<div class="card-content white-text">
+						<span class="card-title">Account info</span>
+						<h4 id="email">Email: </h4>
+						<h4 id="userName">Username: </h4>
+						<h4 id="fullName">Full Name: </h4>
+						<h4 id="isAdmin">Admin Status: </h4>
+					</div>
+					<div class="card-panel blue-text" id="ServerResponse" style="display: none"></div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<%- include('partials/dropdownscript'); %>
+</html>
