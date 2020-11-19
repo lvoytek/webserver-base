@@ -51,7 +51,12 @@ export class UserRouter
 			// attempt to log in
 			.post(this.userController.authenticateUser);
 
-		// handle base model objects
-		app.route('/users').post(this.userController.addUser);
+		app.route('/users')
+		
+			// handle base model objects
+			.post(this.userController.addUser)
+			
+			// get info on a user if authorized
+			.get(this.userController.getUserInfo);
 	}
 }
