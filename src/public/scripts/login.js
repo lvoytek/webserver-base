@@ -30,7 +30,7 @@ function signinError(jqXHR, textStatus, errorThrown)
 	}
 	else
 	{
-		$('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON.message + "</span>");
+		$('#ServerResponse').html("<span class='red-text text-darken-2'>Error: " + jqXHR.responseJSON.error + "</span>");
 		$('#ServerResponse').show();
 	}
 }
