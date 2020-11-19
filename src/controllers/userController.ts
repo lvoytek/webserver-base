@@ -58,6 +58,11 @@ export class UserController
 		res.render("login");
 	}
 
+	public serveAccountPage(req: Request, res: Response)
+	{
+		res.render("account");
+	}
+
 	public addUser(req: Request, res: Response)
 	{
 		const newUserData = req.body as UserDataType;
@@ -119,8 +124,8 @@ export class UserController
 	public getUserInfo(req: Request, res: Response)
 	{
 		const correctAuthToken : string = jwt.encode({email: req.body.email}, TOKENSECRET);
-		
-		if(correctAuthToken == req.body.authToken)
+
+		if(correctAuthToken === req.body.authToken)
 		{
 			user.findOne({email: req.body.email}, (err, usr: UserDataType) =>
 			{
