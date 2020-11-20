@@ -111,7 +111,7 @@ export class UserController
 
 					else if(valid)
 					{
-					const authToken = jwt.encode({email: req.body.email}, TOKENSECRET);
+					const authToken = jwt.encode({email: req.body.email, userName: req.body.userName}, TOKENSECRET);
 					res.status(200).json({"message": "success", "authToken": authToken});
 					}
 					else
