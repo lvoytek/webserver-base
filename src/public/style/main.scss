@@ -1,7 +1,7 @@
-@import "components/color-variables";
+@import "custom_colors";
 @import "components/color-classes";
 
-$primary-color: color("cyan", "darken-2");
+$primary-color: color("neon-green", "darken-2");
 $secondary-color: color("cyan", "lighten-1");
 $success-color: color("teal", "accent-3");
 $error-color: color("red", "accent-2");

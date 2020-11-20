@@ -1,0 +1,21 @@
+@import "components/color-variables";
+@use "sass:map";
+
+$neon-green: (
+  "base":       #3dfd4e,
+  "lighten-5":  #eeffec,
+  "lighten-4":  #d4ffd0,
+  "lighten-3":  #b5ffb1,
+  "lighten-2":  #90ff8d,
+  "lighten-1":  #6bff6d,
+  "darken-1":   #1eea46,
+  "darken-2":   #00d43a,
+  "darken-3":   #00bf2f,
+  "darken-4":   #009921
+);
+
+$custom-colors: (
+	"neon-green": $neon-green
+);
+
+$colors: map-merge($colors, $custom-colors);
