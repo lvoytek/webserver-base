@@ -21,14 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Document: copyViews.ts
+ * Document: compileSass.ts
  *
- * Overview: This document is used as a script for copying non-typescript files
- * to the output dist/ folder.
+ * Overview: This document is used to compile sass files into css files into the 
+ * correct dist/ location
  */
 
 import * as shell from "shelljs";
 
-shell.cp( "-R", "src/views", "dist/" );
-shell.cp( "-R", "src/public", "dist/" );
-shell.rm( "-rf", "dist/public/style/*.scss" );
+const sassFileList = shell.ls("src/public/style/*.scss");
+for(const sassFile of sassFileList)
+{
+	const sassOut = "dist/public/style/" + sassFile.substring(17, sassFile.length - 4) + "css";
+	shell.exec("node-sass --include-path sass " + sassFile + " " + sassOut);	
+}
