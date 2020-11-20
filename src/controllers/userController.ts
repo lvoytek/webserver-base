@@ -32,18 +32,21 @@ import * as dotenv from "dotenv";
 import { Request, Response } from 'express';
 
 import {user} from '../models/user';
+import {unverifiedUser} from '../models/unverifiedUser';
 
 dotenv.config();
 const TOKENSECRET: string = process.env.TOKENSECRET as string;
 
 type UserDataType =
 {
+	_id: string,
 	email: string,
 	fullName: string,
 	userName: string,
 	password: string,
 	passwordHash: string,
-	isAdmin: boolean
+	isAdmin: boolean,
+	authToken: string
 };
 
 export class UserController
@@ -106,16 +109,16 @@ export class UserController
 			{
 				bcryptjs.compare(req.body.password, usr.passwordHash, (bcryptErr, valid) =>
 				{
-					if (err)
-					res.status(500).json({"error" : "Authentication error. Contact support."});
+					if (bcryptErr)
+						res.status(500).json({"error" : "Authentication error. Contact support."});
 
 					else if(valid)
 					{
-					const authToken = jwt.encode({email: req.body.email, userName: req.body.userName}, TOKENSECRET);
-					res.status(200).json({"message": "success", "authToken": authToken});
+						const authToken = jwt.encode({email: req.body.email, userName: req.body.userName}, TOKENSECRET);
+						res.status(200).json({"message": "success", "authToken": authToken});
 					}
 					else
-					res.status(400).json({error : "Email or password invalid."});
+						res.status(400).json({error : "Email or password invalid."});
 				});
 			}
 		});
@@ -149,5 +152,48 @@ export class UserController
 				}
 			});
 		}
+	}
+
+	public verifyUser(req: Request, res: Response)
+	{
+		if(req.params.email && req.params.authToken)
+		{
+			unverifiedUser.findOne({email: req.body.email}, (err, usr: UserDataType) =>
+			{
+				if (err)
+					res.status(500).json({"error" : "Can't connect to DB"});
+
+				else if(!usr)
+					res.status(400).json({"error" : "Invalid authorization link"});
+
+				else
+				{
+					if (req.params.authToken === usr.authToken)
+					{
+						const newUser = new user(
+						{
+							email: usr.email,
+							fullName: usr.fullName,
+							userName: usr.userName,
+							passwordHash: usr.passwordHash
+						});
+		
+						unverifiedUser.deleteOne({_id: usr._id});
+
+						newUser.save((saveErr, item) =>
+						{
+							if(err)
+								res.status(400).json({"error": saveErr});
+							else
+								res.status(201).json({"message": "success"});
+						});
+					}
+					else
+						res.status(400).json({error : "Invalid authorization link"});
+				}
+			});
+		}
+		else
+			res.status(403).json({"error": "Missing parameters"});
 	}
 }

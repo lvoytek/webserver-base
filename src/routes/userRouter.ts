@@ -61,5 +61,8 @@ export class UserRouter
 
 			// get info on a user if authorized
 			.get(this.userController.getUserInfo);
+
+		// verify an account's email address
+		app.route('/verify').get(this.userController.verifyUser);
 	}
 }
