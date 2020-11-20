@@ -2,10 +2,10 @@
 @import "components/color-classes";
 
 $primary-color: color("neon-green", "darken-2");
-$secondary-color: color("cyan", "lighten-1");
+$secondary-color: color("neon-green", "lighten-1");
 $success-color: color("teal", "accent-3");
 $error-color: color("red", "accent-2");
 $link-color: color("cyan", "accent-4");
-$card-bg-color: color("cyan", "darken-3");
+$card-bg-color: color("neon-green", "darken-3");
 
 @import "materialize";
