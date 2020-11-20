@@ -123,17 +123,19 @@ export class UserController
 
 	public getUserInfo(req: Request, res: Response)
 	{
-		const correctAuthToken : string = jwt.encode({email: req.body.email}, TOKENSECRET);
-
-		if(correctAuthToken === req.body.authToken)
+		if(!req.headers["x-auth"])
+			res.status(403).json({"error": "Invalid auth token"});
+		else
 		{
-			user.findOne({email: req.body.email}, (err, usr: UserDataType) =>
+			const decodedEmail = jwt.decode(req.headers["x-auth"] as string, TOKENSECRET);
+
+			user.findOne({email: decodedEmail.email}, (err, usr: UserDataType) =>
 			{
 				if (err)
 					res.status(500).json({"error" : "Can't connect to DB"});
 
 				else if(!usr)
-					res.status(400).json({"error" : "Email or password invalid."});
+					res.status(403).json({"error": "Invalid auth token"});
 
 				else
 				{
@@ -146,10 +148,6 @@ export class UserController
 					});
 				}
 			});
-		}
-		else
-		{
-			res.status(403).json({"error": "Invalid auth token"});
 		}
 	}
 }
