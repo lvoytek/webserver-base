@@ -37,9 +37,8 @@ const UnverifiedUser = new Schema(
 	fullName:		{ type: String, required: true },
 	userName:		{ type: String, required: true },
 	passwordHash:	String,
-	lastAccess:		{ type: Date, default: Date.now },
-	isAdmin:		{ type: Boolean, default: false },
-	accessToken:	{ type: String, required: true}
+	accessToken:	{ type: String, required: true},
+	creationTime:	{ type: Date, default: Date.now}
 });
 
 export const unverifiedUser = db.model('UnverifiedUser', UnverifiedUser);
