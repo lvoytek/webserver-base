@@ -35,7 +35,7 @@ const UnverifiedUser = new Schema(
 {
 	email:			{ type: String, required: true, unique: true },
 	fullName:		{ type: String, required: true },
-	userName:		{ type: String, required: true },
+	userName:		{ type: String, required: true, unique: true },
 	passwordHash:	String,
 	accessToken:	{ type: String, required: true},
 	creationTime:	{ type: Date, default: Date.now}

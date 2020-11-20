@@ -34,7 +34,7 @@ const User = new Schema(
 {
 	email:			{ type: String, required: true, unique: true },
 	fullName:		{ type: String, required: true },
-	userName:		{ type: String, required: true },
+	userName:		{ type: String, required: true, unique: true },
 	passwordHash:	String,
 	lastAccess:		{ type: Date, default: Date.now },
 	isAdmin:		{ type: Boolean, default: false }
