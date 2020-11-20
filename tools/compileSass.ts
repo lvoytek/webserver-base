@@ -33,5 +33,5 @@ const sassFileList = shell.ls("src/public/style/*.scss");
 for(const sassFile of sassFileList)
 {
 	const sassOut = "dist/public/style/" + sassFile.substring(17, sassFile.length - 4) + "css";
-	shell.exec("node-sass --include-path sass " + sassFile + " " + sassOut);	
+	shell.exec("node-sass --include-path materialize/sass " + sassFile + " " + sassOut);	
 }
