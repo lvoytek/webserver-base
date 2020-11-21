@@ -37,7 +37,7 @@ import {unverifiedUser} from '../models/unverifiedUser';
 dotenv.config();
 const TOKENSECRET: string = process.env.TOKENSECRET as string;
 const DOMAIN_NAME: string = process.env.DOMAIN as string;
-const USINGHTTPS: boolean = process.env.USINGHTTPS as boolean;
+const USINGHTTPS: boolean = process.env.USINGHTTPS === 'true';
 
 type UserDataType =
 {
@@ -50,6 +50,23 @@ type UserDataType =
 	isAdmin: boolean,
 	authToken: string
 };
+
+function GenerateVerificationToken()
+{
+	let newKey = "";
+	const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+	for (let i = 0; i < 60; i++) {
+		newKey += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+	}
+
+	return newKey;
+}
+
+function GenerateVerificationLink(email: string, authToken: string)
+{
+	return ((USINGHTTPS) ? "https" : "http") + "://" + DOMAIN_NAME + "/verify?email=" + email + "&authToken=" + authToken;
+}
 
 export class UserController
 {
@@ -179,7 +196,7 @@ export class UserController
 							userName: usr.userName,
 							passwordHash: usr.passwordHash
 						});
-		
+
 						unverifiedUser.deleteOne({_id: usr._id});
 
 						newUser.save((saveErr, item) =>
@@ -197,22 +214,5 @@ export class UserController
 		}
 		else
 			res.status(403).json({"error": "Missing parameters"});
-	}
-
-	private GenerateVerificationToken()
-	{
-		let newKey = "";
-		let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		
-		for (let i = 0; i < 60; i++) {
-			newKey += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-		}
-
-		return newKey;
-	}
-
-	private GenerateVerificationLink(email: string, authToken: string)
-	{
-		return ((USINGHTTPS) ? "https" : "http") + "://" + DOMAIN_NAME + "/verify?email=" + email + "&authToken=" + authToken;
 	}
 }
