@@ -27,8 +27,12 @@
  */
 
 import express from "express";
+import * as dotenv from "dotenv";
 
 import {UserController} from "../controllers/userController";
+
+dotenv.config();
+const USINGEMAILAUTH: boolean = process.env.USINGEMAILAUTH === 'true';
 
 export class UserRouter
 {
@@ -56,8 +60,8 @@ export class UserRouter
 
 		app.route('/users')
 
-			// handle base model objects
-			.post(this.userController.addUser)
+			// Add a new user (unverified if using email auth)
+			.post((USINGEMAILAUTH) ? this.userController.addUnverifiedUser : this.userController.addUser)
 
 			// get info on a user if authorized
 			.get(this.userController.getUserInfo);
