@@ -199,6 +199,18 @@ export class UserController
 			res.status(403).json({"error": "Missing parameters"});
 	}
 
+	private GenerateVerificationToken()
+	{
+		let newKey = "";
+		let alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		
+		for (let i = 0; i < 60; i++) {
+			newKey += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+		}
+
+		return newKey;
+	}
+
 	private GenerateVerificationLink(email: string, authToken: string)
 	{
 		return ((USINGHTTPS) ? "https" : "http") + "://" + DOMAIN_NAME + "/verify?email=" + email + "&authToken=" + authToken;
