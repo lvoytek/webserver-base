@@ -28,6 +28,7 @@
 
 import bcryptjs from "bcryptjs";
 import jwt from "jwt-simple";
+import nodemailer from "nodemailer";
 import * as dotenv from "dotenv";
 import { Request, Response } from 'express';
 
@@ -41,6 +42,7 @@ const USINGHTTPS: boolean = process.env.USINGHTTPS === 'true';
 
 const AUTH_EMAIL: string = process.env.AUTHENTICATIONEMAIL as string;
 const AUTH_EMAIL_PASS:string = process.env.AUTHENTICATIONEMAILPASSWORD as string;
+const MAIL_SERVICE: string = process.env.MAILSERVICE as string;
 
 type UserDataType =
 {
@@ -112,6 +114,63 @@ export class UserController
 						res.status(400).json({"error": saveErr});
 					else
 						res.status(201).json({"message": "success"});
+				});
+			}
+		});
+	}
+
+	public addUnverifiedUser(req: Request, res: Response)
+	{
+		const newUserData = req.body as UserDataType;
+		const accessToken = GenerateVerificationToken();
+
+		bcryptjs.hash(newUserData.password, 10, (err, hash) =>
+		{
+			if(err)
+				res.status(400).json({"error": err});
+			else
+			{
+				const newUser = new unverifiedUser(
+				{
+					email: newUserData.email,
+					fullName: newUserData.fullName,
+					userName: newUserData.userName,
+					passwordHash: hash,
+					accessToken: accessToken
+				});
+
+				newUser.save((saveErr, item) =>
+				{
+					if(err)
+						res.status(400).json({"error": saveErr});
+					else
+					{
+						const transporter = nodemailer.createTransport(
+						{
+							service: MAIL_SERVICE,
+							auth:
+							{
+								user: AUTH_EMAIL,
+								pass: AUTH_EMAIL_PASS
+							}
+						});
+
+						const mailOptions = 
+						{
+							from: AUTH_EMAIL,
+							to: newUserData.email,
+							subject: "Verify your Account",
+							text: "Click on the link to verify your " + DOMAIN_NAME + " account: \n" + GenerateVerificationLink(newUserData.email, accessToken)
+						};
+
+						transporter.sendMail(mailOptions, (mailErr, mailInfo) => 
+						{
+							if(mailErr)
+								res.status(400).json({"error": mailErr});
+							else
+								res.status(201).json({"message": "Success: Check your email for verification link"});
+						});
+					}
 				});
 			}
 		});
