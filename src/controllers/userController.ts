@@ -36,6 +36,8 @@ import {unverifiedUser} from '../models/unverifiedUser';
 
 dotenv.config();
 const TOKENSECRET: string = process.env.TOKENSECRET as string;
+const DOMAIN_NAME: string = process.env.DOMAIN as string;
+const USINGHTTPS: boolean = process.env.USINGHTTPS as boolean;
 
 type UserDataType =
 {
@@ -158,7 +160,7 @@ export class UserController
 	{
 		if(req.params.email && req.params.authToken)
 		{
-			unverifiedUser.findOne({email: req.body.email}, (err, usr: UserDataType) =>
+			unverifiedUser.findOne({email: req.params.email}, (err, usr: UserDataType) =>
 			{
 				if (err)
 					res.status(500).json({"error" : "Can't connect to DB"});
@@ -195,5 +197,10 @@ export class UserController
 		}
 		else
 			res.status(403).json({"error": "Missing parameters"});
+	}
+
+	private GenerateVerificationLink(email: string, authToken: string)
+	{
+		return ((USINGHTTPS) ? "https" : "http") + "://" + DOMAIN_NAME + "/verify?email=" + email + "&authToken=" + authToken;
 	}
 }
