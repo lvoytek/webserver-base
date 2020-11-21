@@ -56,6 +56,11 @@ type UserDataType =
 	authToken: string
 };
 
+/**
+ * Create a random 60 character alphanumeric token to be used for email 
+ * link verification of a user
+ * @return A random 60 character token
+ */
 function GenerateVerificationToken()
 {
 	let newKey = "";
@@ -68,6 +73,12 @@ function GenerateVerificationToken()
 	return newKey;
 }
 
+/**
+ * Generate a link for a user to click on in order to verify their account
+ * @param email The user's email
+ * @param authToken The 60 character token held in the user's unverified account
+ * @return A verification link string
+ */
 function GenerateVerificationLink(email: string, authToken: string)
 {
 	return ((USINGHTTPS) ? "https" : "http") + "://" + DOMAIN_NAME + "/verify?email=" + email + "&authToken=" + authToken;
@@ -75,21 +86,41 @@ function GenerateVerificationLink(email: string, authToken: string)
 
 export class UserController
 {
+	/**
+	 * Show the website's signin page
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public serveNewUserPage(req: Request, res: Response)
 	{
 		res.render("signup");
 	}
 
+	/**
+	 * Show the website's account login page
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public serveLoginPage(req: Request, res: Response)
 	{
 		res.render("login");
 	}
 
+	/**
+	 * Show the user's account info page
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public serveAccountPage(req: Request, res: Response)
 	{
 		res.render("account");
 	}
 
+	/**
+	 * Add a new user to the database without verification
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public addUser(req: Request, res: Response)
 	{
 		const newUserData = req.body as UserDataType;
@@ -119,6 +150,11 @@ export class UserController
 		});
 	}
 
+	/**
+	 * Add a new unverified user to the database
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public addUnverifiedUser(req: Request, res: Response)
 	{
 		const newUserData = req.body as UserDataType;
@@ -136,7 +172,7 @@ export class UserController
 					fullName: newUserData.fullName,
 					userName: newUserData.userName,
 					passwordHash: hash,
-					accessToken: accessToken
+					accessToken
 				});
 
 				newUser.save((saveErr, item) =>
@@ -155,7 +191,7 @@ export class UserController
 							}
 						});
 
-						const mailOptions = 
+						const mailOptions =
 						{
 							from: AUTH_EMAIL,
 							to: newUserData.email,
@@ -163,7 +199,7 @@ export class UserController
 							text: "Click on the link to verify your " + DOMAIN_NAME + " account: \n" + GenerateVerificationLink(newUserData.email, accessToken)
 						};
 
-						transporter.sendMail(mailOptions, (mailErr, mailInfo) => 
+						transporter.sendMail(mailOptions, (mailErr, mailInfo) =>
 						{
 							if(mailErr)
 								res.status(400).json({"error": mailErr});
@@ -176,6 +212,11 @@ export class UserController
 		});
 	}
 
+	/**
+	 * Authenticate a login request
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public authenticateUser(req: Request, res: Response)
 	{
 		user.findOne({email: req.body.email}, (err, usr: UserDataType) =>
@@ -205,6 +246,11 @@ export class UserController
 		});
 	}
 
+	/**
+	 * Send back info to a user if they have the correct auth token
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public getUserInfo(req: Request, res: Response)
 	{
 		if(!req.headers["x-auth"])
@@ -235,6 +281,11 @@ export class UserController
 		}
 	}
 
+	/**
+	 * Verify a user from an emailed link
+	 * @param req The HTTP request
+	 * @param res The HTTP response being sent back
+	 */
 	public verifyUser(req: Request, res: Response)
 	{
 		if(req.params.email && req.params.authToken)
