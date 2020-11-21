@@ -39,6 +39,9 @@ const TOKENSECRET: string = process.env.TOKENSECRET as string;
 const DOMAIN_NAME: string = process.env.DOMAIN as string;
 const USINGHTTPS: boolean = process.env.USINGHTTPS === 'true';
 
+const AUTH_EMAIL: string = process.env.AUTHENTICATIONEMAIL as string;
+const AUTH_EMAIL_PASS:string = process.env.AUTHENTICATIONEMAILPASSWORD as string;
+
 type UserDataType =
 {
 	_id: string,
