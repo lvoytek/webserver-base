@@ -53,7 +53,8 @@ type UserDataType =
 	password: string,
 	passwordHash: string,
 	isAdmin: boolean,
-	authToken: string
+	authToken: string,
+	accessToken: string
 };
 
 /**
@@ -288,19 +289,18 @@ export class UserController
 	 */
 	public verifyUser(req: Request, res: Response)
 	{
-		if(req.params.email && req.params.authToken)
+		if(req.query.email && req.query.authToken)
 		{
-			unverifiedUser.findOne({email: req.params.email}, (err, usr: UserDataType) =>
+			unverifiedUser.findOne({email: req.query.email}, (err, usr: UserDataType) =>
 			{
 				if (err)
 					res.status(500).json({"error" : "Can't connect to DB"});
 
 				else if(!usr)
 					res.status(400).json({"error" : "Invalid authorization link"});
-
 				else
 				{
-					if (req.params.authToken === usr.authToken)
+					if (req.query.authToken === usr.accessToken)
 					{
 						const newUser = new user(
 						{
@@ -317,7 +317,7 @@ export class UserController
 							if(err)
 								res.status(400).json({"error": saveErr});
 							else
-								res.status(201).json({"message": "success"});
+								res.render("index");
 						});
 					}
 					else
