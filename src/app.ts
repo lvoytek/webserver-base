@@ -53,6 +53,7 @@ class App
 		this.config();
 		this.baseRouter.baseRoute(this.app);
 		this.userRouter.userRoute(this.app);
+		this.finalRoute();
 	}
 
 	/**
@@ -80,6 +81,17 @@ class App
 		// Use body parser to obtain JSON information from incoming request bodies
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: false }));
+	}
+
+	/**
+	 * If no other routes work then the route ends up here resulting in 404
+	 */
+	private finalRoute(): void
+	{
+		this.app.use((req, res, next) =>
+		{
+			res.render("notfound");
+		});
 	}
 }
 
