@@ -1,0 +1,14 @@
+<nav>
+	<div class="nav-wrapper">
+	<a href="/" class="brand-logo left" style="height: 100%;" ><img id="logo" src="images/logo.png" style="height: 85%;"></a>
+	<ul class="right ">
+		<%- include('page-nav'); %>
+		<li><a href="#" data-target="slide-out" style="display: block;" class="sidenav-trigger"><i class="material-icons">settings</i></a></li>
+	</ul>
+	</div>
+</nav>
+
+<ul id="slide-out" class="sidenav">
+	<%- include('user-nav'); %>
+	<%- include('settings'); %>
+</ul>

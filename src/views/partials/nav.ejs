@@ -1,34 +1,5 @@
-<nav>
-	<div class="nav-wrapper">
-	<a href="/" class="brand-logo left" style="height: 100%;" ><img id="logo" src="images/logo.png" style="height: 85%;"></a>
-	<ul class="right ">
-		<li><a href="/" id="link-Home">Home</a></li>
-		<li><a href="/link1" id="link-Link1">Link1</a></li>
-		<li><a href="/lin2" id="link-Link2">Link2</a></li>
-		<li><a href="/link3" id="link-Link3">Link3</a></li>
-		<li><a href="#" data-target="slide-out" style="display: block;" class="sidenav-trigger"><i class="material-icons">settings</i></a></li>
-	</ul>
-	</div>
-</nav>
-
-<ul id="slide-out" class="sidenav">
-	<li><div class="user-view">
-		<div class="background">
-			<img src="../images/logo.png">
-		</div>
-	</div></li>
-	
-	<li><a href="/login" class="unregistered-button"><i class="material-icons">login</i>Log in</a></li>
-	<li><a href="/new-user" class="unregistered-button"><i class="material-icons">person_add</i>Create Account</a></li>
-	<li><a href="/account" class="registered-button"><i class="material-icons">account_circle</i>My Account</a></li>
-    <li><div class="divider"></div></li>
-    <li><a class="subheader">Settings</a></li>
-	<li>
-		<a href="#!">
-		<label>
-			<input type="checkbox" class="filled-in" checked="" id="setting1" />
-			<span>Setting1</span>
-		</label>
-		</a>
-	</li>
-</ul>
+<% if (mobile) { %>
+	<%- include('nav/mobile-nav'); %>
+<% } else { %>
+	<%- include('nav/desktop-nav'); %>
+<% } %>

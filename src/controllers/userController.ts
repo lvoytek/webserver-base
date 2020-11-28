@@ -34,6 +34,7 @@ import { Request, Response } from 'express';
 
 import {user} from '../models/user';
 import {unverifiedUser} from '../models/unverifiedUser';
+import {requestHandlers} from './requestHandlers';
 
 dotenv.config();
 const TOKENSECRET: string = process.env.TOKENSECRET as string;
@@ -58,7 +59,7 @@ type UserDataType =
 };
 
 /**
- * Create a random 60 character alphanumeric token to be used for email 
+ * Create a random 60 character alphanumeric token to be used for email
  * link verification of a user
  * @return A random 60 character token
  */
@@ -94,7 +95,7 @@ export class UserController
 	 */
 	public serveNewUserPage(req: Request, res: Response)
 	{
-		res.render("signup");
+		res.render("signup", {mobile: requestHandlers.isRequestFromMobile(req)});
 	}
 
 	/**
@@ -104,7 +105,7 @@ export class UserController
 	 */
 	public serveLoginPage(req: Request, res: Response)
 	{
-		res.render("login");
+		res.render("login", {mobile: requestHandlers.isRequestFromMobile(req)});
 	}
 
 	/**
@@ -114,7 +115,7 @@ export class UserController
 	 */
 	public serveAccountPage(req: Request, res: Response)
 	{
-		res.render("account");
+		res.render("account", {mobile: requestHandlers.isRequestFromMobile(req)});
 	}
 
 	/**
@@ -317,7 +318,7 @@ export class UserController
 							if(err)
 								res.status(400).json({"error": saveErr});
 							else
-								res.render("index");
+								res.render("index", {mobile: requestHandlers.isRequestFromMobile(req)});
 						});
 					}
 					else

@@ -34,6 +34,7 @@ import path from "path";
 
 import {BaseRouter} from "./routes/baseRouter";
 import {UserRouter} from "./routes/userRouter";
+import {requestHandlers} from './controllers/requestHandlers';
 
 class App
 {
@@ -90,7 +91,7 @@ class App
 	{
 		this.app.use((req, res, next) =>
 		{
-			res.render("notfound");
+			res.render("notfound", {mobile: requestHandlers.isRequestFromMobile(req)});
 		});
 	}
 }

@@ -21,43 +21,25 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * Document: baseController.ts
+ * Document: requestHandlers.ts
  *
- * Overview: This document handles the logic within router endpoints
+ * Overview: This document contains universal functions for Request handling
  */
 
-import { Request, Response } from 'express';
+import { Request } from 'express';
 
-import {baseModel} from '../models/baseModel';
-import {requestHandlers} from './requestHandlers';
-
-export class BaseController
+class RequestHandlers
 {
-	public serveIndex(req: Request, res: Response)
+	/**
+	 * Check if a given request is from a mobile user
+	 * @param req The request from a user
+	 * @return true if user is mobile
+	 */
+	public isRequestFromMobile(req: Request)
 	{
-		res.render("index", {mobile: requestHandlers.isRequestFromMobile(req)});
-	}
-
-	public addBaseItem(req: Request, res: Response)
-	{
-		const newItem = new baseModel(req.body);
-		newItem.save((err, item) =>
-		{
-			if(err)
-				res.status(400).json({"error": err});
-			else
-				res.status(200).json({"message": "success", "item":item});
-		});
-	}
-
-	public getAllBaseItems(req: Request, res: Response)
-	{
-		baseModel.find({}, (err, items) =>
-		{
-			if(err)
-				res.status(500).json({"error": err});
-			else
-				res.status(200).json(items);
-		});
+		const ua : string = req.header('user-agent') as string;
+		return (/mobile|iphone|ipod|android|blackberry|opera|mini|windows\sce|palm|smartphone|iemobile|ipad|android|android 3.0|xoom|sch-i800|playbook|tablet|kindle/i.test(ua));
 	}
 }
+
+export const requestHandlers = new RequestHandlers();
