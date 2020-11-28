@@ -1,0 +1,11 @@
+<script>
+	//Initialize sidenav
+	$('.sidenav').sidenav({
+		'edge': 'right'
+	});
+
+	if(window.localStorage.getItem('authToken'))
+		$(".unregistered-button").hide();
+	else
+		$(".registered-button").hide();
+</script>
