@@ -2,10 +2,28 @@
 @import "components/color-classes";
 
 $primary-color: color("neon-green", "darken-2");
-$secondary-color: color("neon-green", "lighten-1");
+$secondary-color: color("neon-green", "darken-3");
 $success-color: color("teal", "accent-3");
 $error-color: color("red", "accent-2");
 $link-color: color("cyan", "accent-4");
-$card-bg-color: color("neon-green", "darken-3");
+$card-bg-color: color("neon-green", "darken-4");
+
+body {
+	@extend .neon-green, .darken-1;
+	@extend .black-text;
+}
+
+.card {
+	@extend .white-text;
+}
+
+label {
+	color: #FFF !important;
+}
+
+.input-field input:focus {
+	border-bottom: 1px solid #FFF !important;
+	box-shadow: 0 1px 0 0 #FFF !important;
+}
 
 @import "materialize";
