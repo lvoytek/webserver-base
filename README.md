@@ -1,4 +1,4 @@
-# webserver-base Main Edition
+# Webserver Base
 
 A simple base for a website frontend and database backend using TypeScript, Node.js, Express, and MongoDB
 
@@ -62,9 +62,9 @@ Then, to stop the application, run
 docker-compose down
 ```
 
-## Main Edition Information
+## Repo Information
 
-This branch provides webserver base with both a website frontend and a MongoDB backend. Database interactions are managed through Mongoose. Meanwhile the frontend uses Embedded JS templates.
+This repository provides a webserver base with both a website frontend and a NodeJS + MongoDB database on the backend. Database interactions are managed through Mongoose. Meanwhile the frontend uses pages created from Sass and Embedded JS templates. Backend code is written in TypeScript.
 
 For this webserver to run properly, [NPM](https://www.npmjs.com/get-npm) and [MongoDB](https://www.mongodb.com/try/download), or [Docker Compose](https://docs.docker.com/compose/install/) must be installed.
 
