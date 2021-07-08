@@ -1,0 +1,27 @@
+version: "3.7"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./src:/usr/node/app/src
+    container_name: webserver-base
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    command: npm run start
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  data-volume:
