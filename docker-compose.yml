@@ -10,9 +10,9 @@ services:
       - ./src:/usr/node/app/src
     container_name: webserver-base
     expose:
-      - "3000"
+      - "${PORT}"
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
     depends_on:
       - mongo
     command: npm run start
