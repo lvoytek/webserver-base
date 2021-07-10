@@ -1,5 +1,11 @@
 # Webserver Base
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Maintained%3F-Yes-green?style=flat-square">
+  <img src="https://img.shields.io/github/license/lvoytek/webserver-base?style=flat-square">
+  <img src="https://img.shields.io/github/issues/lvoytek/webserver-base?color=violet&style=flat-square">
+</p>
+
 A simple base for a website frontend and database backend using TypeScript, Node.js, Express, and MongoDB
 
 ## Setup
@@ -103,3 +109,47 @@ This folder contains Embedded JavaScript files that translate into visible HTML 
 ### [public](src/public/)
 
 This folder contains scripts, images, and stylesheets visible to the outside web. They can be utilized by EJS webpages in the [views/](src/views/) folder.
+
+## Configuration
+
+To configure the server for your website, modify the [.env](.env) file. The variables contained here will be used for building the Docker images and for running the server on NodeJS. Variable meanings are shown below.
+
+#### WEBSERVERNAME
+
+This will control the backend naming scheme of your webserver, such as the name of the main Docker image
+
+#### PORT
+
+The backend network port in which the server runs on. If Nginx is used then it will convert this to port 80 or 443 externally. If you are running multiple webservers on one system make sure this port is unique.
+
+#### MONGOURL
+
+This contains the URL of the MongoDB server for the project. If using a local Mongo server with Docker, make sure the name starts with mongodb://mongodb/. The name after that refers to the database to use for the webserver. Make sure this is also unique on a per-webserver basis.
+
+#### TOKENSECRET
+
+This is used for encrypting user data such as email, username, and full name, (not passwords, those are irreversably hashed). <b> Change this value before deploying your server.</b> 'authsecretstring' is <b>NOT</b> a good secret token.
+
+#### DOMAIN
+
+This variable contains the base URL for your website. Users will enter this into their web browser to access your site.
+
+#### USINGHTTPS
+
+This variable is a boolean. Set it to <b>true</b> to use HTTPS and port 443 on your site (recommended). Running the build with Docker will set up your Nginx configuration for it automatically. Leave it set to <b>false</b> to run on port 80 with HTTP (not secure).
+
+#### USINGEMAILAUTH
+
+This variable is a boolean. Set it to <b>true</b> to require a user to verify their email after signing up before they become a full user. This requires your own email to send out the authentication link. Leave it on <b>false</b> if a user does not need to verify their email before becoming a full user.
+
+#### AUTHENTICATIONEMAIL
+
+If USINGEMAILAUTH is <b>true</b> then this will be the email that the authentication links will be automatically sent from. This must be an email you own and can sign into.
+
+#### AUTHENTICATIONEMAILPASSWORD
+
+If USINGEMAILAUTH is <b>true</b> then this is the password normally used to access the authentication sender email address.
+
+#### MAILSERVICE
+
+If USINGEMAILAUTH is <b>true</b> then this is the name of the email service that the authentication sender email address is associated with. For example, if your email uses G-suite with Google then the service is "gmail". For a list of well known email services to add here, see [NodeMailer services](https://nodemailer.com/smtp/well-known/).
