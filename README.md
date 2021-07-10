@@ -45,7 +45,7 @@ git submodule update --init --recursive
 2. Build the docker image alongside Mongo
 
 ```shell
-docker-compose build
+make build
 ```
 
 ## Running with Docker
@@ -53,20 +53,20 @@ docker-compose build
 To run the application with docker, just use
 
 ```shell
-docker-compose up -d
+make start
 ```
 
 Then, to stop the application, run
 
 ```shell
-docker-compose down
+make stop
 ```
 
 ## Repo Information
 
 This repository provides a webserver base with both a website frontend and a NodeJS + MongoDB database on the backend. Database interactions are managed through Mongoose. Meanwhile the frontend uses pages created from Sass and Embedded JS templates. Backend code is written in TypeScript.
 
-For this webserver to run properly, [NPM](https://www.npmjs.com/get-npm) and [MongoDB](https://www.mongodb.com/try/download), or [Docker Compose](https://docs.docker.com/compose/install/) must be installed.
+For this webserver to run properly, [NPM](https://www.npmjs.com/get-npm) and [MongoDB](https://www.mongodb.com/try/download), or [Docker Compose](https://docs.docker.com/compose/install/) and [Make](https://www.gnu.org/software/make/) must be installed.
 
 ## Source Overview
 
