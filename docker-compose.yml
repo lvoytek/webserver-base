@@ -8,7 +8,7 @@ services:
       target: base
     volumes:
       - ./src:/usr/node/app/src
-    container_name: webserver-base
+    container_name: "${WEBSEVERNAME}"
     expose:
       - "${PORT}"
     ports:
@@ -23,5 +23,13 @@ services:
       - data-volume:/data/db
     ports:
       - "27017:27017"
+  nginx:
+    container_name: nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    build:
+      context: ./nginx
 volumes:
   data-volume:
